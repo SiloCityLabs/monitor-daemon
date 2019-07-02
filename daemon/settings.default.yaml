@@ -3,8 +3,13 @@ web:
   enabled: false
   port: 1314
   token: some-secure-string-here
+system:
+  enabled: false
+  swapWarn: 200000
+  swapReboot: 200000
 ddns:
   enabled: false
+  ip: 127.0.0.1
   urls: 
     - http://website.com/ddns.php?domain=test.com
     - http://website.com/ddns.php?domain=test2.com
@@ -34,4 +39,8 @@ telegram:
   enabled: false
   apikey: api-key-id-here
   chatid: 0
-    
+plex: 
+  enabled: false
+  plex-token: i-dont-have-plex-pass
+  release: "#[label="Ubuntu (16.04+) / Debian (8+) - Intel/AMD 64-bit"]"
+  checksum: outofdate
