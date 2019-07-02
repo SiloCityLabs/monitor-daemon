@@ -5,7 +5,7 @@ web:
   token: some-secure-string-here
 system:
   enabled: false
-  swapWarn: 200000
+  swapwarn: 200000
   swapReboot: 200000
 ddns:
   enabled: false
@@ -39,8 +39,8 @@ telegram:
   enabled: false
   apikey: api-key-id-here
   chatid: 0
-plex: 
+plex:
   enabled: false
-  plex-token: i-dont-have-plex-pass
+  plexToken: i-dont-have-plex-pass
   release: "#[label="Ubuntu (16.04+) / Debian (8+) - Intel/AMD 64-bit"]"
   checksum: outofdate
