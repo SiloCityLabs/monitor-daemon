@@ -1,0 +1,18 @@
+[Unit]
+Description=Silo City Labs Monitor Daemon
+Documentation=https://github.com/SiloCityLabs/monitor-daemon
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+PIDFile=/var/run/monitor-daemon.pid
+WorkingDirectory=/opt/monitor-daemon/
+ExecStart=/opt/monitor-daemon/daemon/daemon.run
+Restart=on-failure
+SyslogIdentifier=gokcm
+
+[Install]
+WantedBy=multi-user.target

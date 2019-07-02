@@ -1,0 +1,37 @@
+name: Monitor-Daemon
+web:
+  enabled: false
+  port: 1314
+  token: some-secure-string-here
+ddns:
+  enabled: false
+  urls: 
+    - http://website.com/ddns.php?domain=test.com
+    - http://website.com/ddns.php?domain=test2.com
+storage:
+  enabled: false
+  mdadm:
+    - /dev/md0
+  smart:
+    - /dev/sda
+  atto:
+    - c1
+rss: 
+  enabled: false
+  urls:
+    - https://www.feedforall.com/sample.xml
+    - https://www.feedforall.com/sample.xml
+transmission:
+  enabled: false
+  path: /opt/transmission
+  proxy:
+    protocol: socks5
+    username: test
+    password: test
+    hostname: somedomain.com
+    port: 1080
+telegram:
+  enabled: false
+  apikey: api-key-id-here
+  chatid: 0
+    
