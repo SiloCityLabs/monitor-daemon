@@ -22,6 +22,7 @@
 **Storage**
  - [x] ATTO Raid check
  - [ ] Mdadm Raid check
+    - [ ] wildcard
  - [ ] SMART Status check
     - [ ] wildcard
 
