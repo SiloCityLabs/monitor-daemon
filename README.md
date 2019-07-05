@@ -12,6 +12,8 @@
  - [ ] file permissions check
  - [ ] speedtest
  - [ ] Notify on ssh login
+ - [ ] reboot
+ - [ ] service restart
 
 **Transmission**
  - [ ] Transmission Proxy Update
