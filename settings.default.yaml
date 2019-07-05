@@ -41,6 +41,6 @@ telegram:
   chatid: 0
 plex:
   enabled: false
-  plexToken: i-dont-have-plex-pass
-  release: "#[label="Ubuntu (16.04+) / Debian (8+) - Intel/AMD 64-bit"]"
+  token: i-dont-have-plex-pass
+  release: '#[label="Ubuntu (16.04+) / Debian (8+) - Intel/AMD 64-bit"]'
   checksum: outofdate

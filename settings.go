@@ -16,9 +16,9 @@ type DaemonSettings struct {
 		Token   string `yaml:"token"`
 	} `yaml:"web"`
 	System struct {
-		Enabled    bool `yaml:"enabled"`
-		SwapReboot int  `yaml:"swapReboot"`
-		SwapWarn   int  `yaml:"swapWarn"`
+		Enabled    bool  `yaml:"enabled"`
+		SwapReboot int64 `yaml:"swapReboot"`
+		SwapWarn   int64 `yaml:"swapWarn"`
 	} `yaml:"system"`
 	Ddns struct {
 		Enabled bool     `yaml:"enabled"`
@@ -39,23 +39,23 @@ type DaemonSettings struct {
 		Enabled bool   `yaml:"enabled"`
 		Path    string `yaml:"path"`
 		Proxy   struct {
-			Hostname string `yaml:"hostname"`
-			Password string `yaml:"password"`
-			Port     int    `yaml:"port"`
 			Protocol string `yaml:"protocol"`
 			Username string `yaml:"username"`
+			Password string `yaml:"password"`
+			Hostname string `yaml:"hostname"`
+			Port     int    `yaml:"port"`
 		} `yaml:"proxy"`
 	} `yaml:"transmission"`
 	Telegram struct {
 		Enabled bool   `yaml:"enabled"`
 		Apikey  string `yaml:"apikey"`
-		Chatid  int    `yaml:"chatid"`
+		Chatid  int64  `yaml:"chatid"`
 	} `yaml:"telegram"`
-	plex struct {
-		Enabled   bool   `yaml:"enabled"`
-		PlexToken string `yaml:"plexToken"`
-		Release   int    `yaml:"release"`
-		Checksum  int    `yaml:"checksum"`
+	Plex struct {
+		Enabled  bool   `yaml:"enabled"`
+		Token    string `yaml:"token"`
+		Release  string `yaml:"release"`
+		Checksum string `yaml:"checksum"`
 	} `yaml:"plex"`
 }
 
@@ -68,11 +68,11 @@ func loadSettings() {
 
 	bytes, ferr := ioutil.ReadFile(settingsFile)
 	if ferr != nil {
-		log.Panicf("Failed to read settings file %s: %v\n", settingsFile, ferr)
+		log.Fatalf("Failed to read settings file %s: %v\n", settingsFile, ferr)
 	}
 
 	if err := yaml.Unmarshal([]byte(bytes), &Settings); err != nil {
-		log.Panicf("Error reading settings file: %s\n", settingsFile)
+		log.Fatalf("Error reading settings file: %s %v\n", settingsFile, err)
 	}
 
 	run = true
