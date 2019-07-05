@@ -23,6 +23,7 @@
  - [x] ATTO Raid check
  - [ ] Mdadm Raid check
  - [ ] SMART Status check
+    - [ ] wildcard
 
 **Plex**
  - [ ] update plex
