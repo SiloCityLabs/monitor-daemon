@@ -11,6 +11,7 @@
  - [x] telegram notify
  - [] file permissions check
  - [] speedtest
+ - [] Notify on ssh login
 
 **Transmission**
  - [] Transmission Proxy Update
