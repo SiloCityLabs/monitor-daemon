@@ -15,7 +15,7 @@
  - [ ] service restart
 
 **Notify**
- - [ ] Telegram
+ - [x] Telegram
  - [ ] slack
  - [ ] teams
  - [ ] hipchat
