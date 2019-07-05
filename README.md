@@ -8,12 +8,18 @@
  - [ ] memory check
  - [ ] wan check
  - [ ] check remote daemon
- - [x] telegram notify
  - [ ] file permissions check
  - [ ] speedtest
  - [ ] Notify on ssh login
  - [ ] reboot
  - [ ] service restart
+
+**Notify**
+ - [ ] Telegram
+ - [ ] slack
+ - [ ] teams
+ - [ ] hipchat
+ - [ ] sms
 
 **Transmission**
  - [ ] Transmission Proxy Update
