@@ -1,43 +1,79 @@
 package Speedtest
 
 import (
-	"fmt"
+	"encoding/json"
+	"errors"
+	"monitorDaemon/pkgs/memory"
 	"os/exec"
 	"strconv"
-
-	"github.com/tidwall/gjson"
+	"time"
 )
 
-func Speedtest() string {
-	if WANUp == false {
-		//Dont run if wan is down.
-		return
-	}
+type SpeedTestResponse struct {
+	Client struct {
+		Rating         string `json:"rating"`
+		Loggedin       string `json:"loggedin"`
+		IP             string `json:"ip"`
+		Isp            string `json:"isp"`
+		IspRating      string `json:"isprating"`
+		IspDownloadAvg string `json:"ispdlavg"`
+		IspUploadAvg   string `json:"ispulavg"`
+		Country        string `json:"country"`
+		Longitude      string `json:"lon"`
+		Latitude       string `json:"lat"`
+	} `json:"client"`
+	Timestamp     time.Time   `json:"timestamp"`
+	Share         interface{} `json:"share"`
+	Download      float64     `json:"download"`
+	Upload        float64     `json:"upload"`
+	Ping          float64     `json:"ping"`
+	BytesSent     int         `json:"bytes_sent"`
+	BytesReceived int         `json:"bytes_received"`
+	Server        struct {
+		ID          string  `json:"id"`
+		Name        string  `json:"name"`
+		Country     string  `json:"country"`
+		CountryCode string  `json:"cc"`
+		Host        string  `json:"host"`
+		Sponsor     string  `json:"sponsor"`
+		URL         string  `json:"url"`
+		URL2        string  `json:"url2"`
+		Longitude   string  `json:"lon"`
+		Latitude    string  `json:"lat"`
+		Latency     float64 `json:"latency"`
+		Distance    float64 `json:"d"`
+	} `json:"server"`
+}
 
-	Service("deluged", "stop")
-	Service("plexmediaserver", "stop")
-	fmt.Println("Running speed test")
+// Speedtest runs a speedtest and returns back the message or an error
+func Speedtest() (SpeedTestResponse, error) {
+	if testSpeedTestCli() == false {
+		return nil, errors.New("Speedtest cli does not seem to be installed check your path variable or try \"apt install speedtest-cli\"")
+	}
 
 	testResult, err := exec.Command("speedtest-cli", "--json").Output()
 	if err != nil {
-		fmt.Println("Failed to run speed test: " + err.Error())
-
-		Service("deluged", "start")
-		Service("plexmediaserver", "start")
-		return
+		return nil, errors.New("Failed to run speed test: " + err.Error())
 	}
 
-	download := gjson.Get(string(testResult), "download").Int()
-	upload := gjson.Get(string(testResult), "upload").Int()
-	ping := gjson.Get(string(testResult), "ping").Int()
+	var result SpeedTestResponse
+	json.Unmarshal(testResult, &result)
 
 	// //If speeds are slower than 80/8 then report it
-	if download <= 20000000 || upload <= 4000000 {
-		Telegram("Speedtest results are below average, Results for today are slow:\n   Latency: " + strconv.Itoa(int(ping)) + ", Speeds are: " + FormatSizeUnits(download) + "/" + FormatSizeUnits(upload) + "\n\n")
+	if result.Download <= 20000000 || result.Upload <= 4000000 {
+		msg := `Speedtest results are below average, Results for today are slow:
+		   Latency: ` + strconv.Itoa(int(result.Ping)) +
+			`, Speeds are: ` + memory.FormatSizeUnits(result.Download) +
+			`/` + memory.FormatSizeUnits(result.Upload) + "\n\n"
+
+		return result, errors.New(msg)
 	}
 
-	fmt.Printf("Speed test %v/%v %v\n", download, upload, ping)
+	return result, nil
+}
 
-	Service("deluged", "start")
-	Service("plexmediaserver", "start")
+// Check to see if the cli is installed
+func testSpeedTestCli() bool {
+	_, err := exec.LookPath("speedtest-cli")
+	return err == nil
 }

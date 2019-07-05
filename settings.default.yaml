@@ -20,7 +20,7 @@ storage:
   smart:
     - /dev/sda
   atto:
-    - c1
+    - 1
 rss: 
   enabled: false
   urls:
