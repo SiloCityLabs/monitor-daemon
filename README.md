@@ -29,7 +29,7 @@
  - [x] ATTO Raid check
  - [ ] Mdadm Raid check
     - [ ] wildcard
- - [ ] SMART Status check
+ - [x] SMART Status check
     - [ ] wildcard
 
 **Plex**
