@@ -31,6 +31,11 @@ func main() {
 
 	startCrons()
 
+	// Start Web server
+	if Settings.Web.Enabled {
+
+	}
+
 	// Wait for shutdown signal
 	s := <-sigs
 	fmt.Printf("RECEIVED SIGNAL: %s\n", s)
@@ -93,5 +98,9 @@ func startCrons() {
 				}
 			})
 		}
+	}
+
+	if Settings.Ddns.Enabled {
+
 	}
 }
